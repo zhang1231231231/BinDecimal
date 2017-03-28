@@ -25,6 +25,7 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -63,21 +64,29 @@ public:
 		}
 		//cout << result << endl;
 		string resString;
-		char s[100] = { 0 };
-		// 也可以使用标准库to_string()直接转换
-		sprintf_s(s, (vct.size()+2)*sizeof(double),"%f", result);
-		resString = s;
-		string subStr = resString.substr(0, vct.size() + 2);
+		resString = convertToString(result);
+		//char s[100] = { 0 };
+		//// 也可以使用标准库to_string()直接转换
+		//sprintf_s(s, (vct.size()+2)*sizeof(double),"%f", result);
+		/*resString = s;*/
+		//string subStr = resString.substr(0, vct.size() + 2);
 		//strcpy(resString, s);
 		//= to_string(result);
-		return subStr;
+		return resString;
+	}
+
+	string convertToString(double d) {
+		ostringstream os;
+		if (os << d)
+			return os.str();
+		return "invalid conversion";
 	}
 };
 
 int main()
 {
 	BinDecimal bin;
-	cout << bin.printBin(0.46502) << endl;
+	cout << bin.printBin(0.625) << endl;
 	return 0;
 }
 
